@@ -1,4 +1,4 @@
-#include "confu_boost/confuBoost.hxx"
+#include "shared_class/serialization.hxx"
 #include <iostream>
 
 
