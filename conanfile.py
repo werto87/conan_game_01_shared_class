@@ -5,7 +5,7 @@ from conans import ConanFile, CMake, tools
 
 
 class SharedClass(ConanFile):
-    name = "shared_class"
+    name = "game_01_shared_class"
     version = "0.0.1"
     license = "BSL-1.0"
     author = "werto87"
@@ -18,7 +18,7 @@ class SharedClass(ConanFile):
     generators = "cmake"
     scm = {
         "type": "git",
-        "subfolder": "folder with Includes",
+        "subfolder": "game_01_shared_class",
         "url": "https://github.com/werto87/game_01_shared_class.git",
         "revision": "main"
     }
@@ -33,17 +33,17 @@ class SharedClass(ConanFile):
 
     def build(self):
         cmake = CMake(self)
-        cmake.configure(source_folder="shared_class")
+        cmake.configure(source_folder="game_01_shared_class")
         cmake.build()
 
     def package(self):
         # This should lead to an Include path like #include "include_folder/IncludeFile.hxx"
-        self.copy("*.h*", dst="include/shared_class",
-                  src="shared_class/shared_class")
+        self.copy("*.h*", dst="include/game_01_shared_class",
+                  src="game_01_shared_class/game_01_shared_class")
         self.copy("*.dll", dst="bin", keep_path=False)
         self.copy("*.so", dst="lib", keep_path=False)
         self.copy("*.dylib", dst="lib", keep_path=False)
         self.copy("*.a", dst="lib", keep_path=False)
 
     def package_info(self):
-        self.cpp_info.libs = ["shared_class"]
+        self.cpp_info.libs = ["game_01_shared_class"]
