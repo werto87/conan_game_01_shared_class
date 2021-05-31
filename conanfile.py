@@ -28,8 +28,9 @@ class SharedClass(ConanFile):
             del self.options.fPIC
 
     def requirements(self):
-        self.requires("confu_boost/0.0.1@confu_boost/0.0.1")
-        
+        self.requires("catch2/2.13.1")
+        self.requires("cereal/1.3.0")
+        self.requires("boost/1.76.0")
 
     def build(self):
         cmake = CMake(self)
