@@ -27,6 +27,10 @@ class SharedClass(ConanFile):
         if self.settings.os == "Windows":
             del self.options.fPIC
 
+    def configure(self):
+        # We can control the options of our dependencies based on current options
+        self.options["boost"].header_only = True
+
     def requirements(self):
         self.requires("catch2/2.13.1")
         self.requires("cereal/1.3.0")
