@@ -30,6 +30,7 @@ class SharedClass(ConanFile):
     def configure(self):
         # We can control the options of our dependencies based on current options
         self.options["boost"].header_only = True
+        self.options["fmt"].header_only = True
 
     def requirements(self):
         self.requires("catch2/2.13.1")
@@ -47,10 +48,6 @@ class SharedClass(ConanFile):
         # This should lead to an Include path like #include "include_folder/IncludeFile.hxx"
         self.copy("*.h*", dst="include/game_01_shared_class",
                   src="game_01_shared_class/game_01_shared_class")
-        self.copy("*.dll", dst="bin", keep_path=False)
-        self.copy("*.so", dst="lib", keep_path=False)
-        self.copy("*.dylib", dst="lib", keep_path=False)
-        self.copy("*.a", dst="lib", keep_path=False)
 
-    def package_info(self):
-        self.cpp_info.libs = ["game_01_shared_class"]
+    def package_id(self):
+        self.info.header_only()
