@@ -8,7 +8,7 @@ class HelloTestConan(ConanFile):
     generators = "cmake"
 
     def requirements(self):
-        self.requires("game_01_shared_class/0.0.1@game_01_shared_class/0.0.1")
+        self.requires("game_01_shared_class/0.0.1")
 
     def config_options(self):
         self.settings.compiler.libcxx = "libstdc++11"

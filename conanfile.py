@@ -31,9 +31,11 @@ class SharedClass(ConanFile):
         self.requires("catch2/2.13.1")
         self.requires("cereal/1.3.0")
         self.requires("boost/1.76.0")
+        self.requires("durak/0.0.1")
 
     def build(self):
         cmake = CMake(self)
+        cmake.definitions["BUILD_WASM"] = self.settings.os == "Emscripten"
         cmake.configure(source_folder="game_01_shared_class")
         cmake.build()
 
