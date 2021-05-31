@@ -1,1 +1,1 @@
-# conan_game_01_shared_class
+Classes used to create objects to transfer data between Client and Server
