@@ -1,7 +1,5 @@
-import shutil
-import os
-from conans.tools import download, unzip, check_md5, check_sha1, check_sha256
-from conans import ConanFile, CMake, tools
+from conans.tools import check_min_cppstd
+from conans import ConanFile
 
 
 class SharedClass(ConanFile):
@@ -28,24 +26,15 @@ class SharedClass(ConanFile):
             del self.options.fPIC
 
     def configure(self):
-        # We can control the options of our dependencies based on current options
+        if self.settings.compiler.cppstd:
+            check_min_cppstd(self, "11")
         self.options["boost"].header_only = True
-        self.options["fmt"].header_only = True
 
     def requirements(self):
-        self.requires("catch2/2.13.1")
-        self.requires("cereal/1.3.0")
         self.requires("boost/1.76.0")
-        self.requires("durak/0.0.1")
-
-    def build(self):
-        cmake = CMake(self)
-        cmake.definitions["BUILD_WASM"] = self.settings.os == "Emscripten"
-        cmake.configure(source_folder="game_01_shared_class")
-        cmake.build()
+        self.requires("durak/0.0.1@werto87/stable")
 
     def package(self):
-        # This should lead to an Include path like #include "include_folder/IncludeFile.hxx"
         self.copy("*.h*", dst="include/game_01_shared_class",
                   src="game_01_shared_class/game_01_shared_class")
 
