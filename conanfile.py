@@ -32,7 +32,7 @@ class SharedClass(ConanFile):
 
     def requirements(self):
         self.requires("boost/1.76.0")
-        self.requires("durak/0.0.1@werto87/stable")
+        self.requires("durak/0.0.2@werto87/stable")
 
     def package(self):
         self.copy("*.h*", dst="include/game_01_shared_class",
