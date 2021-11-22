@@ -1,0 +1,8 @@
+sources:
+  0.0.2:
+    url: https://github.com/werto87/game_01_shared_class/archive/refs/tags/v0.0.2.tar.gz
+    sha256: 68273157a2fd62e6978e6c9098353aa3a957511091332beca0bfb8df1fb21945
+  1.0.0:
+    url: https://github.com/werto87/game_01_shared_class/archive/refs/tags/v1.0.0.tar.gz
+    sha256: 64ac6fbae4de28ef988803a717b0637182a10fc3e2385a4e440a57896ddb9812    
+  

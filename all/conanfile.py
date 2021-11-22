@@ -1,10 +1,10 @@
 from conans.tools import check_min_cppstd
-from conans import ConanFile
+from conans import ConanFile, tools
+import os
 
 
 class SharedClass(ConanFile):
     name = "game_01_shared_class"
-    version = "0.0.1"
     license = "BSL-1.0"
     author = "werto87"
     url = "<Package recipe repository url here, for issues about the package>"
@@ -14,12 +14,23 @@ class SharedClass(ConanFile):
     options = {"shared": [True, False], "fPIC": [True, False]}
     default_options = {"shared": False, "fPIC": True}
     generators = "cmake"
-    scm = {
-        "type": "git",
-        "subfolder": "game_01_shared_class",
-        "url": "https://github.com/werto87/game_01_shared_class.git",
-        "revision": "main"
-    }
+    no_copy_source = True
+
+
+    @property
+    def _source_subfolder(self):
+        return "source_subfolder"
+
+
+    def source(self):
+        if self.version != "latest":
+            tools.get(**self.conan_data["sources"][self.version])
+            extracted_dir = self.name + "-" + self.version
+            os.rename(extracted_dir, self._source_subfolder)
+        else:
+            tools.get(url="https://github.com/werto87/game_01_shared_class/archive/refs/heads/main.zip")
+            extracted_dir = self.name +"-main"
+            os.rename(extracted_dir, self._source_subfolder)
 
     def config_options(self):
         if self.settings.os == "Windows":
@@ -35,8 +46,8 @@ class SharedClass(ConanFile):
         self.requires("durak/0.0.4@werto87/stable")
 
     def package(self):
-        self.copy("*.h*", dst="include/game_01_shared_class",
-                  src="game_01_shared_class/game_01_shared_class")
+        self.copy(pattern="*", dst="include",
+                  src=os.path.join(self._source_subfolder))                
 
     def package_id(self):
         self.info.header_only()
